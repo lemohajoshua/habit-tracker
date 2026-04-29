@@ -1,8 +1,15 @@
-import { Habit } from '@/types/habit';
+import { Habit } from "@/types/habit";
 
 export function toggleHabitCompletion(habit: Habit, date: string): Habit {
-  const completions = habit.completions.includes(date)
+  const isCompleted = habit.completions.includes(date);
+  
+  const newCompletions = isCompleted
     ? habit.completions.filter(d => d !== date)
     : [...habit.completions, date];
-  return { ...habit, completions: [...new Set(completions)] };
+
+  // Return a new object to avoid mutation, ensuring unique dates
+  return {
+    ...habit,
+    completions: Array.from(new Set(newCompletions))
+  };
 }

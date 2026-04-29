@@ -2,22 +2,22 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import SplashScreen from '@/components/shared/SplashScreen';
-import { getSession } from '@/utils/storage';
 
-export default function Home() {
+export default function RootPage() {
   const router = useRouter();
-  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const session = getSession();
-      if (session) router.push('/dashboard');
-      else router.push('/login');
-      setShowSplash(false);
-    }, 1200); // between 800 and 2000 ms
+      const session = localStorage.getItem('habit-tracker-session');
+      if (session) {
+        router.push('/dashboard');
+      } else {
+        router.push('/login');
+      }
+    }, 1200); // Meets the 800ms-2000ms requirement
+
     return () => clearTimeout(timer);
   }, [router]);
 
-  if (!showSplash) return null;
   return <SplashScreen />;
 }

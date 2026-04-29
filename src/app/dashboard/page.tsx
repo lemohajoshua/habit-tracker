@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useHabits } from '@/hooks/useHabits';
+
 import HabitList from '@/components/habits/HabitList';
 import HabitForm from '@/components/habits/HabitForm';
 
 export default function DashboardPage() {
-  const { session, loading: authLoading } = useAuth();
+  const { session, loading: authLoading, logout } = useAuth(); 
   const router = useRouter();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function DashboardPage() {
       <HabitList />
       <button
         data-testid="auth-logout-button"
-        onClick={() => { /* call logout from useAuth */ }}
+        onClick={() => logout()} 
         className="mt-4 bg-red-500 text-white p-2 rounded"
       >
         Logout

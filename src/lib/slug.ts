@@ -1,7 +1,7 @@
 export function getHabitSlug(name: string): string {
   return name
-    .trim()
     .toLowerCase()
+    .trim()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '');
 }
